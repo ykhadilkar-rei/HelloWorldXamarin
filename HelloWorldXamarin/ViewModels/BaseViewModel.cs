@@ -9,7 +9,7 @@ namespace HelloWorldXamarin
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>() ?? new MockDataStore();
+        public IDataStore<Item, AboutInfo> DataStore => DependencyService.Get<IDataStore<Item, AboutInfo>>() ?? new MockDataStore();
 
         bool isBusy = false;
         public bool IsBusy

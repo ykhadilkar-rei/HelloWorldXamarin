@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace HelloWorldXamarin
 {
-    public class MockDataStore : IDataStore<Item>
+    public class MockDataStore : IDataStore<Item,AboutInfo>
     {
         List<Item> items;
+        AboutInfo aboutInfo;
 
         public MockDataStore()
         {
@@ -26,6 +27,8 @@ namespace HelloWorldXamarin
             {
                 items.Add(item);
             }
+
+            aboutInfo = new AboutInfo {About = "Search API", Build = "R10S2B05" };
         }
 
         public async Task<bool> AddItemAsync(Item item)
@@ -60,6 +63,11 @@ namespace HelloWorldXamarin
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
         {
             return await Task.FromResult(items);
+        }
+
+        public async Task<AboutInfo> GetAboutInfoAsync(bool forceRefresh = false)
+        {
+            return await Task.FromResult(aboutInfo);
         }
     }
 }

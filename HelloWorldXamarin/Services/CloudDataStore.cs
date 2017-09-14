@@ -9,7 +9,7 @@ using Plugin.Connectivity;
 
 namespace HelloWorldXamarin
 {
-    public class CloudDataStore : IDataStore<Item>
+    public class CloudDataStore : IDataStore<Item, AboutInfo>
     {
         HttpClient client;
         IEnumerable<Item> items;
@@ -17,10 +17,22 @@ namespace HelloWorldXamarin
         public CloudDataStore()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri($"{App.BackendUrl}/");
+            client.BaseAddress = new Uri($"{App.SamBackendUrl}/");
 
             items = new List<Item>();
         }
+
+
+        public async Task<AboutInfo> GetAboutInfoAsync(bool forceRefresh = false)
+		{
+			if (forceRefresh && CrossConnectivity.Current.IsConnected)
+			{
+                var json = await client.GetStringAsync($"sgs/v1/about?api_key={App.SamApiToken}");
+				return await Task.Run(() => JsonConvert.DeserializeObject<AboutInfo>(json));
+			}
+
+			return null;
+		}
 
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
         {

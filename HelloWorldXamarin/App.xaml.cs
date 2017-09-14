@@ -8,6 +8,8 @@ namespace HelloWorldXamarin
     {
         public static bool UseMockDataStore = true;
         public static string BackendUrl = "https://localhost:5000";
+        public static string SamBackendUrl = "https://api.sam.gov/prod";
+        public static string SamApiToken = "O4kzViWGVYNumPqhAzUhYGiZZZwW3RKUEYJOI6ii";
 
         public App()
         {
